@@ -42,6 +42,7 @@ This repository contains various insights and high-level summaries of papers, te
 - Some tradeoffs in design: availability and reliability over throughput and storage capacity.
 - The paper makes the assumption that lock use will be coarse-grained because unlike fine-grained locks, the former requires less load on the lock server.
 - Client applications link a separate Chubby library during build time. This library enables communication between the client and the lock server, which consists of a set of distributed replicas with a single master.
+	![](./pics/chubby_cell.png)
 - Clients determine the master by querying the Chubby cell servers, after which all subsequent requests directly go to the master until the master lease expires, or the node goes down. 
 	- This technique of talking to the central server for a node and then redirecting future queries to the node directly is similar to the interaction of clients in the **Google File System** (GFS).
 	- Clients ask the master for the location of the chunkserver with the desired data, and then direct communication is established between the chunkserver and the client in order to reduce any bottlenecks with client-master interaction.

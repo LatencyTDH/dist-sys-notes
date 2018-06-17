@@ -85,3 +85,24 @@ This repository contains various insights and high-level summaries of papers, te
 	- Leader election in GFS and BigTable
 
 ## Google Spanner [(Corbett, Dean, et al. 2012)](https://www.usenix.org/system/files/conference/osdi12/osdi12-final-16.pdf)
+* Spanner - a database of distributed Paxos state machines spread across the world
+* Alternative to BigTable for applications that have complex, changing schemas or those that want strong consistency and wide-area replication.
+* **TrueTime API**
+	* Intent to create stronger time semantics and enforce tighter bounds on time uncertainty compared to the weaker time APIs from the past when designing distributed systems.
+	* Exposes clock uncertainty. Google's in-house implementation tries to keep this uncertainty very small by referencing GPS and atomic clocks.
+* Blend of multiple systems and DB requirements
+	* Scalability
+	* Consistency
+	* Fault tolerance
+	* Replication
+	* Automatic sharding 
+	* A simple-to-use, SQL-like query language (termed [NewSQL](https://en.wikipedia.org/wiki/NewSQL) these days)
+* Strengths
+	* Optimized for simple key-value access queries
+	* Fine-grained replication configurations
+	* Externally consistent reads/writes
+	* Globally consistent reads
+	* Lock-free read-only transactions
+	* Atomic schema updates
+* Cons
+	* Node-local data structures have poor performance on complex SQL queries

@@ -7,6 +7,8 @@ This repository contains various insights and high-level summaries of papers, te
 1. [Fundamental Concepts](#fundamental-concepts)
 	1. [The "-ilities"](#the-ilities)
 	1. [Properties of Concurrent Systems](#properties-of-concurrent-systems)
+	1. [Replication](#replication)
+	1. [Consistency](#consistency)
 	1. [Gossip Protocols](#gossip-protocols)
 1. [Chubby Lock Service \(Burrows 2006\)](#chubby-lock-service-burrows-2006)
 1. [Google Spanner \(Corbett, Dean, et al. 2012\)](#google-spanner-corbett-dean-et-al-2012)
@@ -25,6 +27,16 @@ This repository contains various insights and high-level summaries of papers, te
 
 - **liveness property** - something "good" eventually happens but not sure when. E.g. What goes up must come down. The node will eventually receive the message.
 - **safety property** - nothing bad happens during the execution
+
+### Replication
+- The idea of using backup or redundant resources to minimize the impact of a system failure.
+- Types of failures in distributed systems
+	- Independent "fail-stop" computer failures - machine runs normally, but then stops suddenly 
+	- Site-wide power failures
+
+### Consistency
+
+- Any good distributed system designer will make use of replication to achieve high scalability and fault tolerance. But when many reads and writes are happening simultaneously across replicated nodes, how can we be sure that a read query to any of these nodes reflects the result of the most recent write to any one node, especially if it takes some time for the write to complete? After a write request completes on a shared piece of data residing on one server node, how can we ensure that the other nodes have the most up-to-date version before a read of this data happens? In certain cases, do we even need to reply immediately to a read with the most recent write? Would it be acceptable to eventually report the most recent write? Herein lies the **consistency** problem.
 
 ### Gossip Protocols
 
@@ -98,6 +110,7 @@ This repository contains various insights and high-level summaries of papers, te
 	* Automatic sharding 
 	* A simple-to-use, SQL-like query language (termed [NewSQL](https://en.wikipedia.org/wiki/NewSQL) these days)
 * Strengths
+	* Strongly consistent distributed transactions
 	* Optimized for simple key-value access queries
 	* Fine-grained replication configurations
 	* Externally consistent reads/writes
